@@ -1,27 +1,17 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net472</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <LangVersion>latest</LangVersion>
-    <Nullable>disable</Nullable>
     <AssemblyName>Rimfolk.Observer</AssemblyName>
     <RootNamespace>Rimfolk.Observer</RootNamespace>
     <OutputType>Library</OutputType>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <GenerateDependencyFile>false</GenerateDependencyFile>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
     <OutputPath>../../Assemblies/</OutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Assembly-CSharp">
-      <HintPath>$(RimWorldManagedDir)/Assembly-CSharp.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-    <Reference Include="UnityEngine.CoreModule">
-      <HintPath>$(RimWorldManagedDir)/UnityEngine.CoreModule.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
+    <PackageReference Include="Krafs.Rimworld.Ref" Version="1.7.*-*" PrivateAssets="all" />
   </ItemGroup>
-  <Target Name="ValidateRimWorldAssemblies" BeforeTargets="ResolveReferences">
-    <Error Condition="'$(RimWorldManagedDir)' == ''" Text="Pass -p:RimWorldManagedDir=&lt;path to RimWorldWin64_Data/Managed&gt;." />
-    <Error Condition="!Exists('$(RimWorldManagedDir)/Assembly-CSharp.dll')" Text="Assembly-CSharp.dll missing from RimWorldManagedDir." />
-    <Error Condition="!Exists('$(RimWorldManagedDir)/UnityEngine.CoreModule.dll')" Text="UnityEngine.CoreModule.dll missing from RimWorldManagedDir." />
-  </Target>
 </Project>
