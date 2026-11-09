@@ -28,3 +28,14 @@ AI starts with limited infrastructure and supplies and independently builds a su
 - [ ] Smart Speed, performance and optional integrations
 
 Use GitHub issues and PRs for implementation; record design changes in DECISIONS.md.
+
+## Modular architecture and characteristics (planned)
+- [ ] Build lightweight Rimfolk Core contracts and independent module packaging; enforce no gameplay-module-to-gameplay-module dependencies.
+- [ ] Define and prototype Core's typed characteristic registry, per-pawn persistence, and observer-specific visibility contracts without consuming vanilla trait slots.
+- [ ] Validate conservative hidden-data UI behavior when no knowledge provider is installed.
+- [ ] Build Autonomy independently against Core, with optional Observer decision tracing.
+- [ ] Build Governance independently against Core, including configurable elections and single-seat ranked-choice voting.
+- [ ] Later: Social evidence, beliefs, rumors, reputation and progressive discovery; Traits-defined dispositions and conditional effects; Property, Economy and Life as justified.
+- [ ] Test module combinations and graceful degradation; keep Plot Armor development outside this roadmap, with optional integration only if justified.
+
+The development sequence is Observer → Core → Autonomy → Governance. Subsequent modules and interfaces remain provisional. A complete Rimfolk mod preset is not a separate mandatory Experience mod.
