@@ -4,6 +4,9 @@ Status: planning; no gameplay features implemented.
 
 ## Foundation
 - [ ] C# mod skeleton, build and packaging
+- [ ] Audit existing RimWorld telemetry, profiling, screenshot and test tools (licenses, APIs, 1.7 compatibility)
+- [ ] Independently loadable Rimfolk Observer mod, with optional Rimfolk diagnostics integration
+- [ ] Freeze and validate reproducible local mod/game test environment; record per-run manifest
 - [ ] Rimfolk Observer telemetry, checkpoints, failure diagnostics and reporting
 - [ ] Reproducible prebuilt settlement baseline
 
