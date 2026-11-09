@@ -1,0 +1,44 @@
+name: Build Observer v0.0.1
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'Observer/**'
+      - '.github/workflows/observer-build.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'Observer/**'
+      - '.github/workflows/observer-build.yml'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+      - name: Restore and compile Observer
+        run: dotnet build Observer/Source/Rimfolk.Observer/Rimfolk.Observer.csproj --configuration Release
+      - name: Assemble installable mod ZIP
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p dist/RimfolkObserver/About dist/RimfolkObserver/Assemblies
+          cp Observer/About/About.xml dist/RimfolkObserver/About/About.xml
+          cp Observer/Assemblies/Rimfolk.Observer.dll dist/RimfolkObserver/Assemblies/Rimfolk.Observer.dll
+          cd dist
+          zip -r Rimfolk-Observer-v0.0.1.zip RimfolkObserver
+          unzip -l Rimfolk-Observer-v0.0.1.zip
+          test "$(unzip -Z1 Rimfolk-Observer-v0.0.1.zip | grep -c 'RimfolkObserver/Assemblies/Rimfolk.Observer.dll')" -eq 1
+      - name: Upload installable ZIP
+        uses: actions/upload-artifact@v4
+        with:
+          name: Rimfolk-Observer-v0.0.1
+          path: dist/Rimfolk-Observer-v0.0.1.zip
+          if-no-files-found: error
+          retention-days: 30
