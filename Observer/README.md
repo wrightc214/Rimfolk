@@ -28,3 +28,5 @@ The workflow compiles `Observer/Source/Rimfolk.Observer/Rimfolk.Observer.csproj`
 - [ ] Startup log message appears with no new errors.
 
 No telemetry, checkpoints, profiling, frozen environment, or third-party runtime dependencies are included.
+
+Smoke-test version: **0.0.1**. GitHub Actions is the intended build source; no local developer setup is required for players.
