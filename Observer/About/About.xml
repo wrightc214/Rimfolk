@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+  <name>Rimfolk Observer</name>
+  <author>Rimfolk</author>
+  <packageId>wrightc214.rimfolk.observer</packageId>
+  <description>Standalone development diagnostics for RimWorld. Initial build: startup smoke test only.</description>
+  <supportedVersions>
+    <li>1.7</li>
+  </supportedVersions>
+</ModMetaData>
