@@ -1,32 +1,30 @@
-# Rimfolk Observer — startup smoke test
+# Rimfolk Observer v0.0.1
 
-Standalone diagnostics mod for RimWorld 1.7. No Rimfolk Core dependency. **This is an untested skeleton, not a completed smoke test.**
+**Status: first build and in-game smoke test pending.** Standalone RimWorld 1.7 diagnostic mod; no Rimfolk Core or Harmony dependency.
 
-## Prerequisites
-- RimWorld 1.7 installation with `Assembly-CSharp.dll` and `UnityEngine.CoreModule.dll` in its `*_Data/Managed` directory.
-- .NET SDK with .NET Framework 4.7.2 reference assemblies available (often easiest on Windows with the .NET Framework 4.7.2 Developer Pack). Build requirements may need adjustment after testing against the actual RimWorld 1.7 installation.
+## Download and install (Windows / Steam)
 
-## Build
-From the repository root, use a terminal (PowerShell example):
+1. Open the GitHub Actions workflow named **Build Observer v0.0.1** in the Rimfolk repository and open its latest successful run for the feature branch or PR.
+2. Under **Artifacts**, download **Rimfolk-Observer-v0.0.1**. GitHub may require you to sign in.
+3. Extract the downloaded artifact ZIP. Inside is `Rimfolk-Observer-v0.0.1.zip`. Extract that ZIP as well.
+4. In Steam, right-click **RimWorld → Manage → Browse local files**. Open (or create) the `Mods` folder in the RimWorld installation directory.
+5. Copy the **RimfolkObserver** folder from the inner ZIP into `Mods`. The resulting paths should be `Mods/RimfolkObserver/About/About.xml` and `Mods/RimfolkObserver/Assemblies/Rimfolk.Observer.dll`.
+6. Start RimWorld 1.7, open **Mods**, enable **Rimfolk Observer**, and restart when prompted. It should not require Rimfolk Core or any other Rimfolk module.
+7. Open the in-game log (development mode if needed) and look for `[Rimfolk Observer] Startup smoke test: mod initialized.`. Report whether it appears and any errors.
 
-```powershell
-dotnet build Observer/Source/Rimfolk.Observer/Rimfolk.Observer.csproj -c Release -p:RimWorldManagedDir="C:/Program Files (x86)/Steam/steamapps/common/RimWorld/RimWorldWin64_Data/Managed"
-```
+If the mod is not listed, check that you did not accidentally nest the mod folder twice. If you use a custom Steam library, use Steam's **Browse local files** rather than guessing the path.
 
-The intended DLL output is `Observer/Assemblies/Rimfolk.Observer.dll`. If your installation uses another managed-directory name, supply its actual path. If compilation fails, capture the full error; do not mark the test passed.
+## Build (maintainers / CI)
 
-## Local installation
-Copy the **Observer** folder (including `About/About.xml` and the compiled `Assemblies/Rimfolk.Observer.dll`) into RimWorld's local `Mods` directory. Enable **Rimfolk Observer** without Rimfolk Core or other Rimfolk gameplay modules, restart RimWorld, and inspect the in-game log for:
+GitHub Actions builds on Ubuntu with .NET 10 SDK using **Krafs.Rimworld.Ref** 1.7 reference assemblies from NuGet, licensed for reference distribution with Ludeon's permission. The reference package is a **build-time dependency only** and is not shipped. The package version is currently allowed to float within 1.7 prereleases for the smoke test; pin an exact version before frozen simulation testing.
 
-```text
-[Rimfolk Observer] Startup smoke test: mod initialized.
-```
+The workflow compiles `Observer/Source/Rimfolk.Observer/Rimfolk.Observer.csproj`, stages only `About/About.xml` and `Assemblies/Rimfolk.Observer.dll`, then creates an installable mod ZIP. CI compile success is not proof that RimWorld loads the mod; a Windows Steam smoke test is required.
 
-## Acceptance evidence
-- [ ] `dotnet build` succeeds against installed RimWorld 1.7 assemblies.
-- [ ] The mod appears in RimWorld's mod list.
-- [ ] It loads with Rimfolk Core absent and no new errors.
-- [ ] The exact startup log line appears after restart.
-- [ ] Record game version, OS, SDK version and build/log results in the PR.
+## Acceptance checklist
 
-No telemetry, checkpoints, third-party dependencies or frozen-environment validation are implemented in this change.
+- [ ] GitHub Actions restores and compiles against RimWorld 1.7 references.
+- [ ] CI ZIP contains a single `RimfolkObserver` folder with About.xml and the DLL.
+- [ ] RimWorld 1.7 lists and enables the mod without Rimfolk Core.
+- [ ] Startup log message appears with no new errors.
+
+No telemetry, checkpoints, profiling, frozen environment, or third-party runtime dependencies are included.
